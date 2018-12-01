@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solver>
+  <!--<environmentMode>FULL_ASSERT</environmentMode>--><!-- To slowly prove there are no bugs in this code -->
+  <!--<moveThreadCount>AUTO</moveThreadCount>--><!-- To solve faster by saturating multiple CPU cores -->
+
+  <solutionClass>org.optaplannerdelirium.tsp2018prime.domain.TspSolution</solutionClass>
+  <entityClass>org.optaplannerdelirium.tsp2018prime.domain.Visit</entityClass>
+
+  <scoreDirectorFactory>
+    <incrementalScoreCalculatorClass>org.optaplannerdelirium.tsp2018prime.solver.score.TspIncrementalScoreCalculator</incrementalScoreCalculatorClass>
+    <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+  </scoreDirectorFactory>
+
+  <termination>
+    <minutesSpentLimit>2</minutesSpentLimit>
+  </termination>
+  <constructionHeuristic>
+    <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
+  </constructionHeuristic>
+  <localSearch>
+    <!--<unionMoveSelector>-->
+      <!--<changeMoveSelector>-->
+        <!--<cacheType>STEP</cacheType>-->
+        <!--<selectionOrder>SHUFFLED</selectionOrder>-->
+      <!--</changeMoveSelector>-->
+      <!--&lt;!&ndash;<swapMoveSelector>&ndash;&gt;-->
+        <!--&lt;!&ndash;<cacheType>PHASE</cacheType>&ndash;&gt;-->
+        <!--&lt;!&ndash;<selectionOrder>SHUFFLED</selectionOrder>&ndash;&gt;-->
+      <!--&lt;!&ndash;</swapMoveSelector>&ndash;&gt;-->
+      <!--<tailChainSwapMoveSelector/>-->
+      <!--<subChainChangeMoveSelector>-->
+        <!--<subChainSelector>-->
+          <!--<maximumSubChainSize>50</maximumSubChainSize>-->
+        <!--</subChainSelector>-->
+        <!--<selectReversingMoveToo>true</selectReversingMoveToo>-->
+      <!--</subChainChangeMoveSelector>-->
+      <!--&lt;!&ndash;<subChainSwapMoveSelector>&ndash;&gt;-->
+        <!--&lt;!&ndash;<selectReversingMoveToo>false</selectReversingMoveToo>&ndash;&gt;-->
+      <!--&lt;!&ndash;</subChainSwapMoveSelector>&ndash;&gt;-->
+      <!--&lt;!&ndash; TODO use nearby selection to scale out &ndash;&gt;-->
+    <!--</unionMoveSelector>-->
+    <acceptor>
+      <lateAcceptanceSize>400</lateAcceptanceSize>
+    </acceptor>
+    <forager>
+      <acceptedCountLimit>1</acceptedCountLimit>
+    </forager>
+  </localSearch>
+</solver>
