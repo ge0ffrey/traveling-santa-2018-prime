@@ -37,4 +37,6 @@ public interface Standstill {
     Visit getNextVisit();
     void setNextVisit(Visit nextVisit);
 
+    Integer getIndex();
+
 }

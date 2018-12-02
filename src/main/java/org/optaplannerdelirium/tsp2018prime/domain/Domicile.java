@@ -51,6 +51,11 @@ public class Domicile extends AbstractPersistable implements Standstill {
         this.nextVisit = nextVisit;
     }
 
+    @Override
+    public Integer getIndex() {
+        return -1;
+    }
+
     // ************************************************************************
     // Complex methods
     // ************************************************************************

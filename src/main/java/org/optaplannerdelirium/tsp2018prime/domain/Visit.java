@@ -17,11 +17,14 @@
 package org.optaplannerdelirium.tsp2018prime.domain;
 
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
+import org.optaplanner.core.api.domain.variable.CustomShadowVariable;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 import org.optaplanner.core.api.domain.variable.PlanningVariableGraphType;
+import org.optaplanner.core.api.domain.variable.PlanningVariableReference;
 import org.optaplanner.examples.common.domain.AbstractPersistable;
 import org.optaplannerdelirium.tsp2018prime.domain.solver.DomicileAngleVisitDifficultyWeightFactory;
 import org.optaplannerdelirium.tsp2018prime.domain.solver.DomicileDistanceStandstillStrengthWeightFactory;
+import org.optaplannerdelirium.tsp2018prime.domain.solver.IndexUpdatingVariableListener;
 
 @PlanningEntity(difficultyWeightFactoryClass = DomicileAngleVisitDifficultyWeightFactory.class)
 public class Visit extends AbstractPersistable implements Standstill {
@@ -32,6 +35,7 @@ public class Visit extends AbstractPersistable implements Standstill {
     // Planning variables: changes during planning, between score calculations.
     private Standstill previousStandstill;
     private Visit nextVisit;
+    private Integer index;
 
     public Visit() {
     }
@@ -77,6 +81,17 @@ public class Visit extends AbstractPersistable implements Standstill {
 
     public void setNextVisit(Visit nextVisit) {
         this.nextVisit = nextVisit;
+    }
+
+    @Override
+    @CustomShadowVariable(variableListenerClass = IndexUpdatingVariableListener.class,
+            sources = {@PlanningVariableReference(variableName = "previousStandstill")})
+    public Integer getIndex() {
+        return index;
+    }
+
+    public void setIndex(Integer index) {
+        this.index = index;
     }
 
     // ************************************************************************
