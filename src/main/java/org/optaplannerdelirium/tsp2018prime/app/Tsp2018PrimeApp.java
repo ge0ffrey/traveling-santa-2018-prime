@@ -19,10 +19,9 @@ package org.optaplannerdelirium.tsp2018prime.app;
 import org.optaplanner.examples.common.app.CommonApp;
 import org.optaplanner.examples.common.persistence.AbstractSolutionExporter;
 import org.optaplanner.examples.common.persistence.AbstractSolutionImporter;
-import org.optaplanner.persistence.common.api.domain.solution.SolutionFileIO;
-import org.optaplanner.persistence.xstream.impl.domain.solution.XStreamSolutionFileIO;
 import org.optaplannerdelirium.tsp2018prime.domain.TspSolution;
 import org.optaplannerdelirium.tsp2018prime.persistence.TspExporter;
+import org.optaplannerdelirium.tsp2018prime.persistence.TspFileIO;
 import org.optaplannerdelirium.tsp2018prime.persistence.TspImporter;
 import org.optaplannerdelirium.tsp2018prime.swingui.TspPanel;
 
@@ -51,8 +50,8 @@ public class Tsp2018PrimeApp extends CommonApp<TspSolution> {
     }
 
     @Override
-    public SolutionFileIO<TspSolution> createSolutionFileIO() {
-        return new XStreamSolutionFileIO<>(TspSolution.class);
+    public TspFileIO createSolutionFileIO() {
+        return new TspFileIO();
     }
 
     @Override
