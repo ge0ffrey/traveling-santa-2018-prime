@@ -67,7 +67,10 @@ public class TspWorldPanel extends JPanel {
 
     public void resetPanel(TspSolution tspSolution) {
         translator = new LatitudeLongitudeTranslator();
-        for (Location location : tspSolution.getLocationList()) {
+        Location domcileLocation = tspSolution.getDomicile().getLocation();
+        translator.addCoordinates(domcileLocation.getLatitude(), domcileLocation.getLongitude());
+        for (Visit visit : tspSolution.getVisitList()) {
+            Location location = visit.getLocation();
             translator.addCoordinates(location.getLatitude(), location.getLongitude());
         }
 
@@ -128,7 +131,7 @@ public class TspWorldPanel extends JPanel {
         g.fillRect(6, (int) height - 9, 3, 3);
         g.drawString("Visit", 15, (int) height - 5);
         g.setColor(TangoColorFactory.ALUMINIUM_5);
-        String locationsSizeString = tspSolution.getLocationList().size() + " locations";
+        String locationsSizeString = (tspSolution.getVisitList().size() + 1) + " locations";
         g.drawString(locationsSizeString,
                 ((int) width - g.getFontMetrics().stringWidth(locationsSizeString)) / 2, (int) height - 5);
         // Show soft score

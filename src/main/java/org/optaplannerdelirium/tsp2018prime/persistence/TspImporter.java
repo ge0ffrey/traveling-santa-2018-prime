@@ -52,7 +52,6 @@ public class TspImporter extends AbstractTxtSolutionImporter<TspSolution> {
             tspSolution.setId(0L);
             readConstantLine("CityId,X,Y");
 
-            ArrayList<Location> locationList = new ArrayList<>(200_000);
             Domicile domicile = null;
             ArrayList<Visit> visitList = new ArrayList<>(200_000);
             String line = bufferedReader.readLine();
@@ -63,7 +62,6 @@ public class TspImporter extends AbstractTxtSolutionImporter<TspSolution> {
                 }
                 Long id = Long.parseLong(tokens[0]);
                 Location location = new Location(id, Double.parseDouble(tokens[2]), Double.parseDouble(tokens[1]));
-                locationList.add(location);
                 if (domicile == null) {
                     domicile = new Domicile(id, location);
                 } else {
@@ -72,15 +70,14 @@ public class TspImporter extends AbstractTxtSolutionImporter<TspSolution> {
 
                 line = bufferedReader.readLine();
             }
-            tspSolution.setLocationList(locationList);
             tspSolution.setDomicile(domicile);
             tspSolution.setVisitList(visitList);
 
 
-            BigInteger possibleSolutionSize = factorial(tspSolution.getLocationList().size() - 1);
+            BigInteger possibleSolutionSize = factorial(tspSolution.getVisitList().size());
             logger.info("TspSolution {} has {} locations with a search space of {}.",
                     getInputId(),
-                    tspSolution.getLocationList().size(),
+                    tspSolution.getVisitList().size() + 1,
                     getFlooredPossibleSolutionSize(possibleSolutionSize));
             return tspSolution;
         }

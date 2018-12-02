@@ -21,14 +21,11 @@ import javax.swing.JTabbedPane;
 
 import org.optaplanner.examples.common.swingui.SolutionPanel;
 import org.optaplanner.examples.common.swingui.SolverAndPersistenceFrame;
-import org.optaplannerdelirium.tsp2018prime.domain.Location;
 import org.optaplannerdelirium.tsp2018prime.domain.TspSolution;
 
 public class TspPanel extends SolutionPanel<TspSolution> {
 
     private TspWorldPanel tspWorldPanel;
-
-    private Long nextLocationId = null;
 
     public TspPanel() {
         setLayout(new BorderLayout());
@@ -47,17 +44,6 @@ public class TspPanel extends SolutionPanel<TspSolution> {
     @Override
     public void resetPanel(TspSolution tspSolution) {
         tspWorldPanel.resetPanel(tspSolution);
-        resetNextLocationId();
-    }
-
-    private void resetNextLocationId() {
-        long highestLocationId = 0L;
-        for (Location location : getSolution().getLocationList()) {
-            if (highestLocationId < location.getId().longValue()) {
-                highestLocationId = location.getId();
-            }
-        }
-        nextLocationId = highestLocationId + 1L;
     }
 
     @Override

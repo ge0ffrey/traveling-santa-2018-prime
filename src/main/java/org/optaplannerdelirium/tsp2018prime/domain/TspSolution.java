@@ -22,7 +22,6 @@ import java.util.List;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
-import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProperty;
 import org.optaplanner.core.api.domain.solution.drools.ProblemFactProperty;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.simplelong.SimpleLongScore;
@@ -31,21 +30,11 @@ import org.optaplanner.examples.common.domain.AbstractPersistable;
 @PlanningSolution
 public class TspSolution extends AbstractPersistable {
 
-    private List<Location> locationList;
     private Domicile domicile;
 
     private List<Visit> visitList;
 
     private SimpleLongScore score;
-
-    @ProblemFactCollectionProperty
-    public List<Location> getLocationList() {
-        return locationList;
-    }
-
-    public void setLocationList(List<Location> locationList) {
-        this.locationList = locationList;
-    }
 
     @ProblemFactProperty
     public Domicile getDomicile() {
