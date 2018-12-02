@@ -81,8 +81,8 @@ public class TspFileIO implements SolutionFileIO<TspSolution> {
                 Visit visit = new Visit(id,
                         new Location(id, Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2])), Boolean.parseBoolean(tokens[3]));
                 visit.setIndex(Integer.parseInt(tokens[4]));
-                visit.setPreviousStandstill(domicile);
-                domicile.setNextVisit(visit);
+                visit.setPreviousStandstill(previous);
+                previous.setNextVisit(visit);
                 visitList.add(visit);
                 previous = visit;
                 line = reader.readLine();
