@@ -4,6 +4,7 @@
   <!--<moveThreadCount>AUTO</moveThreadCount>--><!-- To solve faster by saturating multiple CPU cores -->
 
   <solutionClass>org.optaplannerdelirium.tsp2018prime.domain.TspSolution</solutionClass>
+  <entityClass>org.optaplannerdelirium.tsp2018prime.domain.Standstill</entityClass>
   <entityClass>org.optaplannerdelirium.tsp2018prime.domain.Visit</entityClass>
 
   <scoreDirectorFactory>

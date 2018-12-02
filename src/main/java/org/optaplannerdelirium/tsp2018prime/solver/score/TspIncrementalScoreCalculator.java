@@ -45,22 +45,30 @@ public class TspIncrementalScoreCalculator extends AbstractIncrementalScoreCalcu
 
     @Override
     public void afterEntityAdded(Object entity) {
-        insert((Visit) entity);
+        if (entity instanceof Visit) {
+            retract((Visit) entity);
+        }
     }
 
     @Override
     public void beforeVariableChanged(Object entity, String variableName) {
-        retract((Visit) entity);
+        if (entity instanceof Visit) {
+            retract((Visit) entity);
+        }
     }
 
     @Override
     public void afterVariableChanged(Object entity, String variableName) {
-        insert((Visit) entity);
+        if (entity instanceof Visit) {
+            insert((Visit) entity);
+        }
     }
 
     @Override
     public void beforeEntityRemoved(Object entity) {
-        retract((Visit) entity);
+        if (entity instanceof Visit) {
+            retract((Visit) entity);
+        }
     }
 
     @Override

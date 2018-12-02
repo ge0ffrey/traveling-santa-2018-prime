@@ -16,6 +16,10 @@
 
 package org.optaplannerdelirium.tsp2018prime.domain;
 
+import org.optaplanner.core.api.domain.entity.PlanningEntity;
+import org.optaplanner.core.api.domain.variable.InverseRelationShadowVariable;
+
+@PlanningEntity
 public interface Standstill {
 
     /**
@@ -28,5 +32,9 @@ public interface Standstill {
      * @return a positive number, the distance multiplied by 1000 to avoid floating point arithmetic rounding errors
      */
     long getDistanceTo(Standstill standstill);
+
+    @InverseRelationShadowVariable(sourceVariableName = "previousStandstill")
+    Visit getNextVisit();
+    void setNextVisit(Visit nextVisit);
 
 }

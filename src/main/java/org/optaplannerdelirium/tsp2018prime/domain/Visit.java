@@ -31,6 +31,7 @@ public class Visit extends AbstractPersistable implements Standstill {
 
     // Planning variables: changes during planning, between score calculations.
     private Standstill previousStandstill;
+    private Visit nextVisit;
 
     public Visit() {
     }
@@ -67,6 +68,15 @@ public class Visit extends AbstractPersistable implements Standstill {
 
     public void setPreviousStandstill(Standstill previousStandstill) {
         this.previousStandstill = previousStandstill;
+    }
+
+    @Override
+    public Visit getNextVisit() {
+        return nextVisit;
+    }
+
+    public void setNextVisit(Visit nextVisit) {
+        this.nextVisit = nextVisit;
     }
 
     // ************************************************************************

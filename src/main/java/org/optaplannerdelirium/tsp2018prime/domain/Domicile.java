@@ -22,6 +22,8 @@ public class Domicile extends AbstractPersistable implements Standstill {
 
     private Location location;
 
+    private Visit nextVisit;
+
     public Domicile() {
     }
 
@@ -37,6 +39,16 @@ public class Domicile extends AbstractPersistable implements Standstill {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    @Override
+    public Visit getNextVisit() {
+        return nextVisit;
+    }
+
+    @Override
+    public void setNextVisit(Visit nextVisit) {
+        this.nextVisit = nextVisit;
     }
 
     // ************************************************************************
