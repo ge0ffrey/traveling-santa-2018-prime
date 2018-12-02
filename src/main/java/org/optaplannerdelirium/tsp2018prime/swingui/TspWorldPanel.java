@@ -31,11 +31,9 @@ import java.util.List;
 import java.util.Set;
 import javax.swing.JPanel;
 
-import org.apache.commons.lang3.StringUtils;
 import org.optaplanner.core.api.score.buildin.simplelong.SimpleLongScore;
 import org.optaplanner.examples.common.swingui.latitudelongitude.LatitudeLongitudeTranslator;
 import org.optaplanner.swing.impl.TangoColorFactory;
-import org.optaplannerdelirium.tsp2018prime.domain.Domicile;
 import org.optaplannerdelirium.tsp2018prime.domain.Location;
 import org.optaplannerdelirium.tsp2018prime.domain.TspSolution;
 import org.optaplannerdelirium.tsp2018prime.domain.Visit;
@@ -67,8 +65,8 @@ public class TspWorldPanel extends JPanel {
 
     public void resetPanel(TspSolution tspSolution) {
         translator = new LatitudeLongitudeTranslator();
-        Location domcileLocation = tspSolution.getDomicile().getLocation();
-        translator.addCoordinates(domcileLocation.getLatitude(), domcileLocation.getLongitude());
+        Location domicileLocation = tspSolution.getDomicile().getLocation();
+        translator.addCoordinates(domicileLocation.getLatitude(), domicileLocation.getLongitude());
         for (Visit visit : tspSolution.getVisitList()) {
             Location location = visit.getLocation();
             translator.addCoordinates(location.getLatitude(), location.getLongitude());
@@ -81,26 +79,22 @@ public class TspWorldPanel extends JPanel {
 
         Graphics2D g = createCanvas(width, height);
         g.setFont(g.getFont().deriveFont((float) LOCATION_NAME_TEXT_SIZE));
-        g.setColor(TangoColorFactory.PLUM_2);
         List<Visit> visitList = tspSolution.getVisitList();
         for (Visit visit : visitList) {
+            if (visit.isPrime()) {
+                g.setColor(TangoColorFactory.ORANGE_2);
+            } else {
+                g.setColor(TangoColorFactory.PLUM_2);
+            }
             Location location = visit.getLocation();
             int x = translator.translateLongitudeToX(location.getLongitude());
             int y = translator.translateLatitudeToY(location.getLatitude());
             g.fillRect(x - 1, y - 1, 3, 3);
-            if (location.getName() != null && visitList.size() <= 500) {
-                g.drawString(StringUtils.abbreviate(location.getName(), 20), x + 3, y - 3);
-            }
         }
         g.setColor(TangoColorFactory.ALUMINIUM_4);
-        Domicile domicile = tspSolution.getDomicile();
-        Location domicileLocation = domicile.getLocation();
         int domicileX = translator.translateLongitudeToX(domicileLocation.getLongitude());
         int domicileY = translator.translateLatitudeToY(domicileLocation.getLatitude());
         g.fillRect(domicileX - 2, domicileY - 2, 5, 5);
-        if (domicileLocation.getName() != null && visitList.size() <= 500) {
-            g.drawString(domicileLocation.getName(), domicileX + 3, domicileY - 3);
-        }
         Set<Visit> needsBackToDomicileLineSet = new HashSet<>(visitList);
         for (Visit trailingVisit : visitList) {
             if (trailingVisit.getPreviousStandstill() instanceof Visit) {

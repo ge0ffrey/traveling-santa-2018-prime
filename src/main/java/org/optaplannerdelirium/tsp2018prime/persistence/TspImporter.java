@@ -19,6 +19,7 @@ package org.optaplannerdelirium.tsp2018prime.persistence;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.optaplanner.examples.common.persistence.AbstractTxtSolutionImporter;
 import org.optaplannerdelirium.tsp2018prime.domain.Domicile;
@@ -44,7 +45,7 @@ public class TspImporter extends AbstractTxtSolutionImporter<TspSolution> {
 
         private TspSolution tspSolution;
 
-        private int locationListSize;
+
 
         @Override
         public TspSolution readSolution() throws IOException {
@@ -55,6 +56,7 @@ public class TspImporter extends AbstractTxtSolutionImporter<TspSolution> {
             Domicile domicile = null;
             ArrayList<Visit> visitList = new ArrayList<>(200_000);
             String line = bufferedReader.readLine();
+            List<Long> primeIdList = new ArrayList<>(10_000);
             while (line != null) {
                 String[] tokens = line.split(",");
                 if (tokens.length != 3) {
@@ -65,7 +67,8 @@ public class TspImporter extends AbstractTxtSolutionImporter<TspSolution> {
                 if (domicile == null) {
                     domicile = new Domicile(id, location);
                 } else {
-                    visitList.add(new Visit(id, location));
+                    boolean prime = isPrime(primeIdList, id);
+                    visitList.add(new Visit(id, location, prime));
                 }
 
                 line = bufferedReader.readLine();
@@ -80,6 +83,20 @@ public class TspImporter extends AbstractTxtSolutionImporter<TspSolution> {
                     tspSolution.getVisitList().size() + 1,
                     getFlooredPossibleSolutionSize(possibleSolutionSize));
             return tspSolution;
+        }
+
+        private boolean isPrime(List<Long> primeIdList, Long id) {
+            if (id < 2L) {
+                return false;
+            } else {
+                for (Long primeId : primeIdList) {
+                    if (id % primeId == 0) {
+                        return false;
+                    }
+                }
+                primeIdList.add(id);
+                return true;
+            }
         }
     }
 

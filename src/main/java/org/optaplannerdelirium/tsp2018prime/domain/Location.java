@@ -20,7 +20,6 @@ import org.optaplanner.examples.common.domain.AbstractPersistable;
 
 public class Location extends AbstractPersistable {
 
-    protected String name = null;
     protected double latitude;
     protected double longitude;
 
@@ -31,14 +30,6 @@ public class Location extends AbstractPersistable {
         super(id);
         this.latitude = latitude;
         this.longitude = longitude;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public double getLatitude() {
@@ -92,15 +83,6 @@ public class Location extends AbstractPersistable {
         double latitudeDifference = location.latitude - latitude;
         double longitudeDifference = location.longitude - longitude;
         return Math.atan2(latitudeDifference, longitudeDifference);
-    }
-
-
-    @Override
-    public String toString() {
-        if (name == null) {
-            return super.toString();
-        }
-        return name;
     }
 
 }

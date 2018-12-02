@@ -27,6 +27,7 @@ import org.optaplannerdelirium.tsp2018prime.domain.solver.DomicileDistanceStands
 public class Visit extends AbstractPersistable implements Standstill {
 
     private Location location;
+    private boolean prime;
 
     // Planning variables: changes during planning, between score calculations.
     private Standstill previousStandstill;
@@ -34,9 +35,10 @@ public class Visit extends AbstractPersistable implements Standstill {
     public Visit() {
     }
 
-    public Visit(Long id, Location location) {
+    public Visit(Long id, Location location, boolean prime) {
         super(id);
         this.location = location;
+        this.prime = prime;
     }
 
     @Override
@@ -46,6 +48,14 @@ public class Visit extends AbstractPersistable implements Standstill {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public boolean isPrime() {
+        return prime;
+    }
+
+    public void setPrime(boolean prime) {
+        this.prime = prime;
     }
 
     @PlanningVariable(valueRangeProviderRefs = {"domicileRange", "visitRange"},
@@ -88,14 +98,6 @@ public class Visit extends AbstractPersistable implements Standstill {
     @Override
     public long getDistanceTo(Standstill standstill) {
         return location.getDistanceTo(standstill.getLocation());
-    }
-
-    @Override
-    public String toString() {
-        if (location.getName() == null) {
-            return super.toString();
-        }
-        return location.getName();
     }
 
 }
